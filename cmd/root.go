@@ -10,6 +10,7 @@ import (
 )
 
 var delayInMs *int
+var noHighlight *bool
 
 var rootCmd = &cobra.Command{
 	Use:   "speedread",
@@ -22,6 +23,7 @@ var rootCmd = &cobra.Command{
 
 func init() {
 	delayInMs = rootCmd.Flags().IntP("delay", "d", 300, "Delay between words in milliseconds")
+	noHighlight = rootCmd.Flags().BoolP("no-highlight", "n", false, "Don't highlight the 'center' character in the word")
 }
 
 func Execute() {
@@ -35,7 +37,7 @@ func Execute() {
 
 	log.Println(delayInMs)
 
-	p := tea.NewProgram(ui.UiModel{DelayInMs: *delayInMs, WordProcessor: *wordProcessor}, tea.WithAltScreen())
+	p := tea.NewProgram(ui.UiModel{DelayInMs: *delayInMs, HideHighlight: *noHighlight, WordProcessor: *wordProcessor}, tea.WithAltScreen())
 	if _, err := p.Run(); err != nil {
 		log.Fatal(err)
 	}

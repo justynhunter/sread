@@ -13,6 +13,7 @@ import (
 
 type UiModel struct {
 	DelayInMs     int
+	HideHighlight bool
 	WordProcessor lib.WordProcessor
 }
 
@@ -47,7 +48,20 @@ func (m UiModel) View() string {
 		log.Fatal("unable to determin terminal size")
 	}
 
-	content := lipgloss.NewStyle().Render(m.WordProcessor.CurrentWord)
+	var text string
+
+	if m.HideHighlight {
+		text = m.WordProcessor.CurrentWord
+	} else {
+		text = lipgloss.StyleRunes(
+			m.WordProcessor.CurrentWord,
+			[]int{max(0, len(m.WordProcessor.CurrentWord)/2)},
+			lipgloss.NewStyle().Foreground(lipgloss.Color("#98FF98")),
+			lipgloss.NewStyle(),
+		)
+	}
+
+	content := lipgloss.NewStyle().Render(text)
 
 	return lipgloss.Place(width, height, lipgloss.Center, lipgloss.Center, content)
 }

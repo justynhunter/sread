@@ -12,7 +12,8 @@ cat your_doc | speedreader -d 400
 
 ### TODO
 - [x] center text on screen
-- [ ] style text
-- [ ] add color highlight for focus
+- ~~[ ] style text~~
+- [x] add color highlight for focus
 - [ ] support for file name, so you don't need to cat
 - [ ] show help when nothing is piped in
+- [ ] add xdg config for default --delay
