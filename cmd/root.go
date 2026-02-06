@@ -5,6 +5,7 @@ import (
 	"os"
 
 	tea "github.com/charmbracelet/bubbletea"
+	"github.com/justynhunter/speedreader/config"
 	"github.com/justynhunter/speedreader/lib"
 	"github.com/justynhunter/speedreader/ui"
 	"github.com/spf13/cobra"
@@ -27,9 +28,14 @@ var rootCmd = &cobra.Command{
 }
 
 func init() {
-	highlightColor = rootCmd.Flags().StringP("highlight-color", "c", "#98FF98", "Color of the highlighted character in hex")
-	noHighlight = rootCmd.Flags().BoolP("no-highlight", "n", false, "Don't highlight the 'center' character in the word")
-	wordsPerMinute = rootCmd.Flags().IntP("words-per-minute", "w", 300, "words per minute")
+	config, err := config.ReadConfig()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	highlightColor = rootCmd.Flags().StringP("highlight-color", "c", config.HighlightColor, "Color of the highlighted character in hex")
+	noHighlight = rootCmd.Flags().BoolP("no-highlight", "n", config.NoHighlight, "Don't highlight the 'center' character in the word")
+	wordsPerMinute = rootCmd.Flags().IntP("words-per-minute", "w", config.WordsPerMinute, "words per minute")
 }
 
 func Execute() {
