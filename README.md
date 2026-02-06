@@ -14,7 +14,7 @@ sread my_file.txt --no-highlight
 
 | flag | short | default | purpose |
 | --- | --- | --- | --- |
-| --delay | -d | 300 | delay between words in ms |
+| --words-per-minute | -w | 300 | the speed the words are shown |
 | --highlight-color | -c | #FF0088 | color of the 'center' character |
 | --no-highlight | -n | false | don't highlight the 'center' character |
 

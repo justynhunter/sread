@@ -12,16 +12,20 @@ import (
 )
 
 type UiModel struct {
-	DelayInMs      int
 	HighlightColor string
 	NoHighlight    bool
 	WordProcessor  lib.WordProcessor
+	WordsPerMinute int
 }
 
 type tickMsg = time.Time
 
+func (m UiModel) DelayInMs() int {
+	return 60_000 / m.WordsPerMinute
+}
+
 func (m UiModel) Init() tea.Cmd {
-	return tick(m.DelayInMs)
+	return tick(m.DelayInMs())
 }
 
 func (m UiModel) Update(message tea.Msg) (tea.Model, tea.Cmd) {
@@ -37,7 +41,7 @@ func (m UiModel) Update(message tea.Msg) (tea.Model, tea.Cmd) {
 		if eof {
 			return m, tea.Quit
 		}
-		return m, tick(m.DelayInMs)
+		return m, tick(m.DelayInMs())
 	}
 
 	return m, nil
