@@ -27,7 +27,7 @@ var rootCmd = &cobra.Command{
 }
 
 func init() {
-	highlightColor = rootCmd.Flags().StringP("highlight-color", "c", "#98FF98", "Color of the highlighted character in hex (e.g. #98FF98")
+	highlightColor = rootCmd.Flags().StringP("highlight-color", "c", "#98FF98", "Color of the highlighted character in hex")
 	noHighlight = rootCmd.Flags().BoolP("no-highlight", "n", false, "Don't highlight the 'center' character in the word")
 	wordsPerMinute = rootCmd.Flags().IntP("words-per-minute", "w", 300, "words per minute")
 }
