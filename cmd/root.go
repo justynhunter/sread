@@ -28,7 +28,10 @@ var rootCmd = &cobra.Command{
 }
 
 func init() {
-	config := config.ReadConfig()
+	config, err := config.ReadConfig()
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	highlightColor = rootCmd.Flags().StringP("highlight-color", "c", config.HighlightColor, "Color of the highlighted character in hex")
 	noHighlight = rootCmd.Flags().BoolP("no-highlight", "n", config.NoHighlight, "Don't highlight the 'center' character in the word")

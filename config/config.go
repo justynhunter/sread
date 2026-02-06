@@ -1,6 +1,9 @@
 package config
 
 import (
+	"log"
+	"os"
+
 	"github.com/BurntSushi/toml"
 	"github.com/adrg/xdg"
 )
@@ -11,6 +14,8 @@ type Config struct {
 	WordsPerMinute int
 }
 
+var configPath string = "sread/config.toml"
+
 func defaultConfig() Config {
 	return Config{HighlightColor: "#98FF98", NoHighlight: false, WordsPerMinute: 300}
 }
@@ -19,17 +24,45 @@ func parseConfig(rawConfig string) Config {
 	var config Config
 	_, err := toml.Decode(rawConfig, &config)
 	if err != nil {
-		return defaultConfig()
+		config := defaultConfig()
+		if err = writeConfig(config); err != nil {
+			log.Fatal(err)
+		}
 	}
 
 	return config
 }
 
-func ReadConfig() Config {
-	configString, err := xdg.ConfigFile("sread/config.toml")
+func writeConfig(config Config) error {
+	configFilePath, err := xdg.ConfigFile(configPath)
 	if err != nil {
-		return defaultConfig()
+		return err
 	}
 
-	return parseConfig(configString)
+	file, err := os.Create(configFilePath)
+	if err != nil {
+		return err
+	}
+	defer file.Close()
+
+	encoder := toml.NewEncoder(file)
+	if err = encoder.Encode(config); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func ReadConfig() (Config, error) {
+	configFilePath, err := xdg.ConfigFile(configPath)
+	if err != nil {
+		return Config{}, err
+	}
+
+	bytes, err := os.ReadFile(configFilePath)
+	if err != nil {
+		return Config{}, err
+	}
+
+	return parseConfig(string(bytes)), nil
 }
