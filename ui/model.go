@@ -8,7 +8,7 @@ import (
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/charmbracelet/lipgloss"
 	"github.com/charmbracelet/x/term"
-	"github.com/justynhunter/speedreader/lib"
+	"github.com/justynhunter/sread/lib"
 )
 
 type UiModel struct {

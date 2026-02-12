@@ -1,4 +1,4 @@
-module github.com/justynhunter/speedreader
+module github.com/justynhunter/sread
 
 go 1.25.4
 

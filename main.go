@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/justynhunter/speedreader/cmd"
+	"github.com/justynhunter/sread/cmd"
 )
 
 func main() {

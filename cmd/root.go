@@ -5,9 +5,9 @@ import (
 	"os"
 
 	tea "github.com/charmbracelet/bubbletea"
-	"github.com/justynhunter/speedreader/config"
-	"github.com/justynhunter/speedreader/lib"
-	"github.com/justynhunter/speedreader/ui"
+	"github.com/justynhunter/sread/config"
+	"github.com/justynhunter/sread/lib"
+	"github.com/justynhunter/sread/ui"
 	"github.com/spf13/cobra"
 )
 
@@ -17,9 +17,9 @@ var fileName *string
 var wordsPerMinute *int
 
 var rootCmd = &cobra.Command{
-	Use:   "speedread [FILE]",
-	Short: "speadread is a cli tool for reading a document quickly.",
-	Long:  "speadread is a cli tool for reading a document quickly.",
+	Use:   "sread [FILE]",
+	Short: "sread is a cli tool for reading a document quickly.",
+	Long:  "sread is a cli tool for reading a document quickly.",
 	Run: func(cmd *cobra.Command, args []string) {
 		if len(args) > 0 {
 			fileName = &args[0]
